@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/469c235931.js" crossorigin="anonymous"></script>  
+    
+</head>
+<body>
+    <header><div>
+LANGUAGES
+    </div>
+    </header>
+    
+      <div id="heading">
+        <div>
+            <input id="inputEL" class="inputEL" type="text" placeholder="Text">
+            <button style="padding: 6px;background-color: blue;border: 2px solid;border-radius: 5px;" id="btn" class="btn">SAVE</button>
+        </div>
+        
+            <ul id="list1">
+                 <!-- <li class="footItem">tamil <i id="close" class="fa-solid fa-xmark" onclick="removeli(event)"></i></li> -->
+                <!-- <li class="footItem">english <i id="close"class="fa-solid fa-xmark" onclick="removeli(event)"></i></li>
+                <li class="footItem">maths <i id="close" class="fa-solid fa-xmark" onclick="removeli(event)"></i></li>
+                <li class="footItem">sciencs <i id="close" class="fa-solid fa-xmark" onclick="removeli(event)"></i></li> -->
+            </ul>
+      </div>
+ <script>
+       let inputText = document.getElementById("inputEL");
+       let inpbut = document.getElementById("btn");
+       let inpul = document.getElementById("list1");
+       
+       document.addEventListener("DOMContentLoaded",()=>{
+        // console.log(localStorage.getItem("items"));
+        let inplocalget = [...JSON.parse(localStorage.getItem("items"))];
+        // console.log(inplocalget);
+        inplocalget.forEach((item)=>{
+            console.log(item.item1);
+            let eny1 = `<li class="footItem"> ${item.item1} <i id="close" class="fa-solid fa-xmark" onclick="removeli(event)"></i><li>`;
+        inpul.innerHTML += eny1;
+        })
+       
+       })
+
+       inpbut.addEventListener("click",()=>{
+    //    let newli = document.createElement("li");
+    //    let newi = document.createElement("i");
+    //    newli.className = "footItem";
+    //    newi.className = "fa-solid fa-xmark";
+    //    newli.innerHTML+=newi;
+    //    newli.textContent = inputText.value;
+    //    inpul.append(newli);
+    //  setTimeout(() => {
+    //     alert("this is project")
+    //    }, 500);
+    new11();
+    localst();
+    inputText.value = "";
+       })
+
+       function new11(){
+        let eny1 = `<li class="footItem"> ${inputText.value} <i id="close" class="fa-solid fa-xmark" onclick="removeli(event)"></i><li>`;
+        inpul.innerHTML += eny1;
+    }
+    //  
+     // remove li 
+       function removeli(event){
+       // console.log(event.target.parentNode);
+       let rem = event.target.parentNode;
+       console.log(rem.innerText);
+       rem.remove();
+
+    //    remove loal storge
+    let inplocalget = [...JSON.parse(localStorage.getItem("items"))];
+
+    inplocalget.forEach((item)=>{
+        if(item.item1 === rem.innerText){
+            inplocalget.splice(inplocalget.indexOf(item),1)
+        }else{
+            inplocalget.splice(inplocalget.indexOf(item),1)
+
+        }
+        console.log(item.item1 === rem.innerText);
+        console.log(item.item1);
+        console.log(rem.innerText);
+
+    })
+    
+    localStorage.setItem("items",JSON.stringify(inplocalget));
+
+       }
+      // enterkey to acsess
+       inputText.addEventListener("keyup",(event)=>{
+        if(event.key=="Enter"){
+            new11();
+            localst();
+            inputText.value = "";
+        }else if(event.key==="keyZ" && (event.ctrlKey || event.metaKey)){
+            inputText.value = "";
+        }
+        // console.log(rem);
+       })
+   function localst(){
+    localStorage.setItem("items",JSON.stringify([
+        ...JSON.parse(localStorage.getItem("items") || "[]"),
+        {item1 :inputText.value },
+     ]));
+   }
+   
+ </script>
+     
+
+
+</body>
+</html>
